@@ -48,4 +48,8 @@ jobs:
           docker
           docker images -a
       - name: docker build
-        run: docker build . -t demo-kotlin2.0
+        run: |
+          docker build . -t demo-kotlin2.0
+          docker images -a
+      - name: docker login
+        run: docker login -u {{ secrets.dockerhubusername }} -p {{ secrets.dockerhubpassword }}
