@@ -37,6 +37,7 @@ jobs:
             az account show
             az group list
       - name: Run a multi-line script
+        if: always()
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
