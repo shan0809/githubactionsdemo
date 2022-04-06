@@ -32,6 +32,10 @@ jobs:
            ls -al
 
       # Runs a set of commands using the runners shell
+      - name: RUN AZ Command
+        run: |
+            az account show
+            az group list
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
