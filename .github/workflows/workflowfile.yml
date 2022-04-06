@@ -55,3 +55,7 @@ jobs:
         run: docker login -u ${{ secrets.dockerhubusername }} -p ${{ secrets.dockerhubpassword }}
       - name: docker image push
         run: docker push shan0809/demo-kotlin2.0
+      - name: RUN AZ Command
+        run: |
+          az account show
+          az group list
