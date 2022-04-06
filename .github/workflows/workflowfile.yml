@@ -32,6 +32,10 @@ jobs:
            ls -al
 
       # Runs a set of commands using the runners shell
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}' 
       - name: login to azure
         uses: azure/login@v1
         with:
