@@ -38,7 +38,7 @@ jobs:
       - uses: azure/aks-set-context@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          cluster-name: githubactionaks
+          cluster-name: githubactionaks1
           resource-group: githubRGACTION
 
       - name: RUN AZ COMMnd
