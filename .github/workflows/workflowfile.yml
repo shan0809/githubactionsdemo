@@ -31,19 +31,12 @@ jobs:
         run: |
            ls -al
 
-      # Runs a set of commands using the runners shell
-      - name: Log in with Azure
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}' 
-      - name: login to azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: RUN AZ Command
+      - name: RUN AZ COMMnd
         run: |
-            az account show
-            az group list
+          az account show
+          az group list
+
+      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         if: always()
         run: |
@@ -68,7 +61,3 @@ jobs:
         run: docker login -u ${{ secrets.dockerhubusername }} -p ${{ secrets.dockerhubpassword }}
       - name: docker image push
         run: docker push shan0809/demo-kotlin2.0
-      - name: RUN AZ Command
-        run: |
-          az account show
-          az group list
