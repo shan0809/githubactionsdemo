@@ -44,9 +44,9 @@ jobs:
       - run: |
           kubectl create namespace githubrg
       
-      - name: deploy app
-        run: |
-          kubectl apply -f .
+#      - name: deploy app
+#        run: |
+#          kubectl apply -f .
 
       - name: RUN AZ COMMnd
         run: |
