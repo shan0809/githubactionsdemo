@@ -43,10 +43,13 @@ jobs:
 
       - run: |
           kubectl create namespace githubrg
-      
-#      - name: deploy app
+
       - run: |
-          kubectl apply -f .
+          kubectl apply -f pod.yaml
+
+      - uses: actions/checkout@v2
+
+    
 
       - name: RUN AZ COMMnd
         run: |
