@@ -67,12 +67,13 @@ jobs:
           docker images -a
       - name: add sha
         run: | 
-         echo "SHORT_SHA=` echo ${GITHUB_SHA}`" >> ${GITHUB_SHA}
+         echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> ${GITHUB_SHA}
          echo $SHORT_SHA
 
       - name: docker build
         run: |
             docker build . -t shan0809/test$SHORT_SHA
+            docker push shan0809/test$SHORT_SHA
             docker images -a
       - name: docker build
         run: |
