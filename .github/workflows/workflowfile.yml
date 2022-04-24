@@ -28,22 +28,22 @@ jobs:
       - name: running a custom scrip
         run: |
           ls -al
-      - name: Log in with Azure action
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-      - uses: azure/aks-set-context@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          cluster-name: githubactionaks
-          resource-group: githubRGACTION
-
-      - run: |
-          kubectl create namespace githubrg
+#      - name: Log in with Azure action
+#        uses: azure/login@v1
+#        with:
+#          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#      - uses: azure/aks-set-context@v1
+#        with:
+#          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#          cluster-name: githubactionaks
+#          resource-group: githubRGACTION
+#
+#      - run: |
+#          kubectl create namespace githubrg
       
       #      - name: deploy app
-      - run: |
-          kubectl apply -f .
+#      - run: |
+#          kubectl apply -f .
       - name: RUN AZ COMMnd
         run: |
           az account show
@@ -78,8 +78,10 @@ jobs:
 
       - name: docker build
         run: |
-            docker build . -t shan0809/test$SHORT_SHA
-            docker push shan0809/test$SHORT_SHA
+            echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> ${GITHUB_SHA}
+            echo $SHORT_SHA
+            docker build . -t shan0809/test:$SHORT_SHA
+            docker push shan0809/test:$SHORT_SHA
             docker images -a
       - name: docker build
         run: |
