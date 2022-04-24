@@ -76,12 +76,14 @@ jobs:
          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> ${GITHUB_SHA}
          echo $SHORT_SHA
       - name: docker build
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |    
-          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
-          echo $SHORT_SHA
-          echo $GITHUB_ENV
-          docker build -t shan0809/test:$SHORT_SHA .
-          docker push shan0809/test:$SHORT_SHA
+#          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+#          echo $SHORT_SHA
+#          echo $GITHUB_ENV
+          docker build -t shan0809/test:$IMAGE_TAG .
+          docker push shan0809/test:$IMAGE_TAG
           docker images -a
       - name: docker build
         run: |
