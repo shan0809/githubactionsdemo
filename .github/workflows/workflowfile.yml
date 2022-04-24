@@ -68,21 +68,21 @@ jobs:
       - name: docker image push
         run: docker push shan0809/demo-kotlin2.0
 
-  azureauth:
-      # The type of runner that the job will run on
-      runs-on: ubuntu-latest
-    - name: Log in with Azure action
-      uses: azure/login@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        - uses: azure/aks-set-context@v1
-          with:
-            creds: '${{ secrets.AZURE_CREDENTIALS }}'
-            cluster-name: githubactionaks
-            resource-group: githubRGACTION
+#  azureauth:
+#      # The type of runner that the job will run on
+#      runs-on: ubuntu-latest
+      - name: Log in with Azure action
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          - uses: azure/aks-set-context@v1
+            with:
+              creds: '${{ secrets.AZURE_CREDENTIALS }}'
+              cluster-name: githubactionaks
+              resource-group: githubRGACTION
 
-    - run: |
-        kubectl create namespace githubrg
+      - run: |
+          kubectl create namespace githubrg
 
-    - run: |
-        kubectl apply -f pod.yaml
+      - run: |
+          kubectl apply -f pod.yaml
