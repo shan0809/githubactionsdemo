@@ -75,11 +75,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          - uses: azure/aks-set-context@v1
-            with:
-              creds: '${{ secrets.AZURE_CREDENTIALS }}'
-              cluster-name: githubactionaks
-              resource-group: githubRGACTION
+       - uses: azure/aks-set-context@v1
+         with:
+           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+           cluster-name: githubactionaks
+           resource-group: githubRGACTION
 
       - run: |
           kubectl create namespace githubrg
