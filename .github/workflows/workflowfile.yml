@@ -32,10 +32,16 @@ jobs:
            ls -al
 
       
+<<<<<<< HEAD
 
       - uses: actions/checkout@v2
 
     
+=======
+#      - name: deploy app
+#        run: |
+#          kubectl apply -f .
+>>>>>>> parent of d67b312... status
 
       - name: RUN AZ COMMnd
         run: |
