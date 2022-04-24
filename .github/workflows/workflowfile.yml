@@ -69,7 +69,7 @@ jobs:
         run: | 
          echo "SHORT_SHA=` echo ${GITHUB_SHA}`" >> ${GITHUB_SHA}
          echo $SHORT_SHA
-          -
+
       - name: docker build
         run: |
             docker build . -t shan0809/test$SHORT_SHA
