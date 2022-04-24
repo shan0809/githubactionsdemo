@@ -79,8 +79,8 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |    
-          docker build -t shan0809/test:$IMAGE_TAG .
-          docker push shan0809/test:$IMAGE_TAG
+          docker build -t shan0809/$IMAGE_TAG .
+          docker push shan0809/$IMAGE_TAG
           docker images -a
       - name: docker build
         run: |
