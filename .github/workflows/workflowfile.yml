@@ -65,6 +65,12 @@ jobs:
           docker -v
           docker
           docker images -a
+      - name: add sha
+        run: echo "SHORT_SHA=echo ${GITHUB_SHA}"
+      - name: docker build
+        run: |
+            docker build . -t shan0809/$SHORT_SHA
+            docker images -a
       - name: docker build
         run: |
           docker build . -t shan0809/demo-kotlin2.0
