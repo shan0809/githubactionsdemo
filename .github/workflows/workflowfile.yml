@@ -1,94 +1,72 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Continous Integration Demo
-
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main, feature/branch ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+---
 jobs:
-  # This workflow contains a single job called "build"
-  buildanddeploy:
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: running a custom scrip
-        run: |
-           ls -al
-
-      
-
-
-      - uses: actions/checkout@v2
-
-    
-
-#      - name: deploy app
-#        run: |
-#          kubectl apply -f .
-
-
-      - name: RUN AZ COMMnd
+      -
+        uses: actions/checkout@v3
+      -
+        name: "Run a one-line script"
+        run: "echo Hello, world!"
+      -
+        name: "running a custom scrip"
+        run: "ls -al\n"
+      -
+        name: "Log in with Azure action"
+        uses: azure/login@v1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+      -
+        uses: azure/aks-set-context@v1
+        with:
+          cluster-name: githubactionaks
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          resource-group: githubRGACTION
+      -
+        run: "kubectl create namespace githubrg\n"
+      -
+        run: "kubectl apply -f .\n"
+      -
+        name: "RUN AZ COMMnd"
         run: |
           az account show
           az group list
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      -
         if: always()
+        name: "Run a multi-line script"
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - name: check java version
-        run: java -version
-      - name: gradle build
-        run: gradle build
-      - name: gradlew build
-        run: ./gradlew build
-      - name: docker version
+      -
+        name: "check java version"
+        run: "java -version"
+      -
+        name: "gradle build"
+        run: "gradle build"
+      -
+        name: "gradlew build"
+        run: "./gradlew build"
+      -
+        name: "docker version"
         run: |
           docker -v
           docker
           docker images -a
-      - name: docker build
+      -
+        name: "docker build"
         run: |
           docker build . -t shan0809/demo-kotlin2.0
           docker images -a
-      - name: docker login
-        run: docker login -u ${{ secrets.dockerhubusername }} -p ${{ secrets.dockerhubpassword }}
-      - name: docker image push
-        run: docker push shan0809/demo-kotlin2.0
-
-#  azureauth:
-#      # The type of runner that the job will run on
-#      runs-on: ubuntu-latest
-      - name: Log in with Azure action
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-       - uses: azure/aks-set-context@v1
-         with:
-           creds: '${{ secrets.AZURE_CREDENTIALS }}'
-           cluster-name: githubactionaks
-           resource-group: githubRGACTION
-
-      - run: |
-          kubectl create namespace githubrg
-
-      - run: |
-          kubectl apply -f pod.yaml
+      -
+        name: "docker login"
+        run: "docker login -u ${{ secrets.dockerhubusername }} -p ${{ secrets.dockerhubpassword }}"
+      -
+        name: "docker image push"
+        run: "docker push shan0809/demo-kotlin2.0"
+name: "Continous Integration Demo"
+true:
+  push:
+    branches:
+      - main
+      - feature/branch
+  workflow_dispatch: ~
