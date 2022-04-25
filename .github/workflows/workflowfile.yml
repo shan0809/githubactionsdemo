@@ -92,6 +92,27 @@ jobs:
           docker build -t shan0809/$IMAGE_TAG .
           docker push shan0809/$IMAGE_TAG
           docker images -a
+          
+          
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
+
+      - name: Add FULL_SHA env property with commit short sha
+        run: echo "SHORT_SHA=echo ${GITHUB_SHA}"
+
+      - name: Add SHORT_SHA env property with commit short sha
+        run: |
+         echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+         echo $GITHUB_ENV
+         
+      - name: docker build
+        run: |
+          docker build -t shan0809/$SHORT_SHA .
+          docker push shan0809/$SHORT_SHA
+          
       - name: docker build
         run: |
           docker build . -t shan0809/demo-kotlin2.0
