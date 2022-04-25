@@ -82,8 +82,8 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |    
-          docker build -t shan0809/${{ github.sha::8 }} .
-          docker push shan0809/${{ github.sha::8 }}
+          docker build -t shan0809/${github.sha::8} .
+          docker push shan0809/${github.sha::8}
           docker images -a
       - name: docker build
         env:
