@@ -58,8 +58,8 @@ jobs:
         run: java -version
       - name: gradle build
         run: gradle build
-      - name: gradlew build
-        run: ./gradlew build
+#       - name: gradlew build
+#         run: ./gradlew build
       - name: docker version
         run: |
           docker -v
@@ -77,10 +77,17 @@ jobs:
            echo $SHORT_SHA
       
            
-           
+      
       - name: docker build
         env:
-          IMAGE_TAG: ${{ github.sha::8 }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |    
+          docker build -t shan0809/${{ github.sha::8 }} .
+          docker push shan0809/${{ github.sha::8 }}
+          docker images -a
+      - name: docker build
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |    
           docker build -t shan0809/$IMAGE_TAG .
           docker push shan0809/$IMAGE_TAG
