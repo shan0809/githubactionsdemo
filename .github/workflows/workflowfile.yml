@@ -79,6 +79,19 @@ jobs:
         with:
           username: ${{ secrets.dockerhubusername }}
           password: ${{ secrets.dockerhubpassword }}
+          
+      - name: Add FULL_SHA env property with commit short sha
+        run: echo "SHORT_SHA=echo ${GITHUB_SHA}"
+
+      - name: Add SHORT_SHA env property with commit short sha
+        run: |
+         echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+         echo $GITHUB_ENV
+         
+      - name: docker build
+        run: |
+          docker build -t shan0809/$SHORT_SHA .
+          docker push shan0809/$SHORT_SHA
       - name: docker image tag
         env:
           IMAGE_TAG: ${{ github.sha }}
