@@ -80,13 +80,20 @@ jobs:
           username: ${{ secrets.dockerhubusername }}
           password: ${{ secrets.dockerhubpassword }}
           
-
-      - name: docker image tag
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t shan0809/${GITHUB_SHA::8} .
-          docker push shan0809/${GITHUB_SHA::8}
+       - name: use github_env var
+         run: |
+           echo "SHORTEN_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+           echo $GITHUB_ENV
+       - name: docker build using github_env
+         run: |
+           docker build -t shan0809/$SHORTEN_SHA .
+           docker push shan0809/$SHORTEN_SHA
+#      - name: docker image tag
+#        env:
+#          IMAGE_TAG: ${{ github.sha }}
+#        run: |
+#          docker build -t shan0809/${GITHUB_SHA::8} .
+#          docker push shan0809/${GITHUB_SHA::8}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
