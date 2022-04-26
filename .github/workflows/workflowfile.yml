@@ -60,6 +60,7 @@ jobs:
   get-the-multilinetask:
     needs:
       - build
+      - build.outputs.tag
     runs-on: ubuntu-latest
     steps:
       - name: Run a multi-line script
@@ -70,6 +71,7 @@ jobs:
       - name: check java version
         run: java -version
       - name: gradle build
+
         run: gradle build
 #       - name: gradlew build
 #         run: ./gradlew build
