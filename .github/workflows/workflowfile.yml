@@ -55,6 +55,9 @@ jobs:
 #           az group list
       # Runs a set of commands using the runners shell
   get-the-multilinetask:
+    needs:
+      - build
+      - get-the-files
     runs-on: ubuntu-latest
     steps:
       - name: Run a multi-line script
