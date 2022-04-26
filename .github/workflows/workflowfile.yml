@@ -28,26 +28,26 @@ jobs:
       - name: running a custom scrip
         run: |
           ls -al
-      - name: Log in with Azure action
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-      - uses: azure/aks-set-context@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          cluster-name: githubactionaks
-          resource-group: githubRGACTION
+#       - name: Log in with Azure action
+#         uses: azure/login@v1
+#         with:
+#           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#       - uses: azure/aks-set-context@v1
+#         with:
+#           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#           cluster-name: githubactionaks
+#           resource-group: githubRGACTION
 
-      - run: |
-          kubectl create namespace githubrg
+#       - run: |
+#           kubectl create namespace githubrg
       
-      #      - name: deploy app
-      - run: |
-          kubectl apply -f .
-      - name: RUN AZ COMMnd
-        run: |
-          az account show
-          az group list
+#       #      - name: deploy app
+#       - run: |
+#           kubectl apply -f .
+#       - name: RUN AZ COMMnd
+#         run: |
+#           az account show
+#           az group list
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         if: always()
