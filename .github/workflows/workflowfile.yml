@@ -60,9 +60,12 @@ jobs:
   get-the-multilinetask:
     needs:
       - build
-      - build.outputs.tag
+
     runs-on: ubuntu-latest
     steps:
+      - name: get the depependency
+        run: ${{ needs.build.outputs.tag}}
+
       - name: Run a multi-line script
         if: always()
         run: |
