@@ -22,13 +22,11 @@ jobs:
       - uses: actions/checkout@v3
       - id: checkout
         uses: actions/checkout@v3
-
-    outputs:
-      tag: ${{ steps.checkout.outputs.tag }}
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
+    outputs:
+      tag: ${{ steps.checkout.outputs.tag }}    
   get-the-files:
     needs:
       - build
