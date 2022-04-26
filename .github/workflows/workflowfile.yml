@@ -28,26 +28,26 @@ jobs:
       - name: running a custom scrip
         run: |
           ls -al
-#      - name: Log in with Azure action
-#        uses: azure/login@v1
-#        with:
-#          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-#      - uses: azure/aks-set-context@v1
-#        with:
-#          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-#          cluster-name: githubactionaks
-#          resource-group: githubRGACTION
-#
-#      - run: |
-#          kubectl create namespace githubrg
+      - name: Log in with Azure action
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+      - uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          cluster-name: githubactionaks
+          resource-group: githubRGACTION
 
+      - run: |
+          kubectl create namespace githubrg
+      
       #      - name: deploy app
-#      - run: |
-#          kubectl apply -f .
-#      - name: RUN AZ COMMnd
-#        run: |
-#          az account show
-#          az group list
+      - run: |
+          kubectl apply -f .
+      - name: RUN AZ COMMnd
+        run: |
+          az account show
+          az group list
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         if: always()
@@ -58,61 +58,13 @@ jobs:
         run: java -version
       - name: gradle build
         run: gradle build
-#       - name: gradlew build
-#         run: ./gradlew build
+      - name: gradlew build
+        run: ./gradlew build
       - name: docker version
         run: |
           docker -v
           docker
           docker images -a
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-            username: ${{ secrets.dockerhubusername }}
-            password: ${{ secrets.dockerhubpassword }}
-      - name: add sha
-        run: | 
-           echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> ${GITHUB_SHA}
-           echo $SHORT_SHA
-      
-           
-      
-      - name: docker build
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-        run: |    
-          docker build -t shan0809/${GITHUB_SHA::8} .
-          docker push shan0809/${GITHUB_SHA::8}
-          docker images -a
-      - name: docker build
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-        run: |    
-          docker build -t shan0809/$IMAGE_TAG .
-          docker push shan0809/$IMAGE_TAG
-          docker images -a
-          
-          
-      - name: Set outputs
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
-
-      - name: Add FULL_SHA env property with commit short sha
-        run: echo "SHORT_SHA=echo ${GITHUB_SHA}"
-
-      - name: Add SHORT_SHA env property with commit short sha
-        run: |
-         echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
-         echo $GITHUB_ENV
-         
-      - name: docker build
-        run: |
-          docker build -t shan0809/$SHORT_SHA .
-          docker push shan0809/$SHORT_SHA
-          
       - name: docker build
         run: |
           docker build . -t shan0809/demo-kotlin2.0
@@ -133,4 +85,3 @@ jobs:
           context: .
           push: true
           tags: shan0809/demo-kotlin2.0
-
