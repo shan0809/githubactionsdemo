@@ -60,6 +60,12 @@ jobs:
         run: gradle build
 #       - name: gradlew build
 #         run: ./gradlew build
+      - name: docker image tag
+        env: 
+          IMAGE_TAG: ${{ GITHUB_SHA }}
+        run: |
+          docker build -t shan0809/$IMAGE_TAG .
+          docker push shan0809/$IMAGE_TAG
       - name: docker version
         run: |
           docker -v
