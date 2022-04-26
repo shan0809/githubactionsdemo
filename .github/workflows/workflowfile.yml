@@ -24,6 +24,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
+  get-the-files:
+    runs-on: ubuntu-latest
+    steps:
 
       - name: running a custom scrip
         run: |
@@ -49,6 +52,9 @@ jobs:
 #           az account show
 #           az group list
       # Runs a set of commands using the runners shell
+  get-the-multilinetask:
+    runs-on: ubuntu-latest
+    steps:
       - name: Run a multi-line script
         if: always()
         run: |
