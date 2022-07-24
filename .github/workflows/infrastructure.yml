@@ -34,5 +34,5 @@ jobs:
           unzip tflint_linux_amd64
           mv tflint /usr/local/bin
 
-       - name: Terraform init
-         run: terraform init
+      - name: Terraform init
+        run: terraform init
