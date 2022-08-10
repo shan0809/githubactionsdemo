@@ -25,7 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-
+      
+      - name: Create Dir
+        run: |
+          ls -al 
+          pwd 
+          if [ -d "/home/ubuntu/" ]; then 
+            echo "directory exists" 
+          else
+            echo "directory doesn't exist creating it"
+          fi
       - name: 'Install pre-reqs'
         run: |
           curl -SL "https://releases.hashicorp.com/terraform/1.2.5/terraform_1.2.5_linux_amd64.zip" --output terraform.zip
