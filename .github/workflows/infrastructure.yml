@@ -25,26 +25,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: 'Install pre-reqs'
-        run: |
-          curl -SL "https://releases.hashicorp.com/terraform/1.2.5/terraform_1.2.5_linux_amd64.zip" --output terraform.zip
-          unzip "terraform.zip"
-          mv terraform /usr/local/bin
-          terraform --version 
-          rm terraform.zip
-      - name: 'Install TFLint'
-        run: |
-          wget https://github.com/terraform-linters/tflint/releases/download/v0.25.0/tflint_linux_amd64.zip
-          unzip tflint_linux_amd64
-          mv tflint /usr/local/bin
+#      - name: 'Install pre-reqs'
+#        run: |
+#          curl -SL "https://releases.hashicorp.com/terraform/1.2.5/terraform_1.2.5_linux_amd64.zip" --output terraform.zip
+#          unzip "terraform.zip"
+#          mv terraform /usr/local/bin
+#          terraform --version
+#          rm terraform.zip
+#      - name: 'Install TFLint'
+#        run: |
+#          wget https://github.com/terraform-linters/tflint/releases/download/v0.25.0/tflint_linux_amd64.zip
+#          unzip tflint_linux_amd64
+#          mv tflint /usr/local/bin
 
-      - name: Terraform init
-        run: terraform init
+#      - name: Terraform init
+#        run: terraform init
+#
+#      - name: Terraform plan
+#        run: terraform plan
+#
+#      - name: terraform apply
+#        run: terraform apply -auto-approve
 
-      - name: Terraform plan
-        run: terraform plan
+       - name: 'Terraform Format'
+         uses: hashicorp/terraform-github-action@master
+         with:
+           tf_action_version: 0.14.8
+           tf_action_subcommand: 'fmt'
+           tf_actions_working_dir: "./terraform"
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-action@master
+        with:
+            tf_action_version: 0.14.8
+            tf_action_subcommand: 'init'
+            tf_actions_working_dir: "./terraform"
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-action@master
+        with:
+            tf_action_version: 0.14.8
+            tf_action_subcommand: 'plan'
+            tf_actions_working_dir: "./terraform"
 
-      - name: terraform apply
-        run: terraform apply -auto-approve
+
 
 
