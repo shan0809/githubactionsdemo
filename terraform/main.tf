@@ -28,7 +28,7 @@ resource "azurerm_resource_group" "rg" {
 }
 resource "azurerm_resource_group" "rg1" {
   location = "north europe"
-  name = "createviapipeline"
+  name     = "createviapipeline"
 }
 
 output "resource_group_location" {
