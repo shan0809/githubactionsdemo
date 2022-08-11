@@ -14,7 +14,7 @@ variable "location" {
 }
 resource "azurerm_resource_group" "rg" {
   location = var.location
-  name = random_pet.rg-name.id
+  name     = random_pet.rg-name.id
 }
 
 output "resource_group_location" {
